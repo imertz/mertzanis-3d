@@ -3,7 +3,6 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import githubLogo from "./assets/github-mark-white.svg";
 import linkedinLogo from "./assets/linkedin.svg";
-import myMusic from "./assets/audio.mp3";
 
 function Star(props) {
   const ref = useRef();
@@ -21,7 +20,7 @@ function Star(props) {
   });
   return (
     <mesh {...props} ref={ref}>
-      <sphereGeometry args={[1, 32, 32]} />
+      <sphereGeometry args={[1, 1, 1]} />
       <meshStandardMaterial
         emissive="yellow"
         emissiveIntensity={1}
@@ -47,7 +46,7 @@ function generateStarsThatMove(count, radius) {
 }
 
 function Stars() {
-  const [stars] = useState(() => generateStarsThatMove(3000, 1000));
+  const [stars] = useState(() => generateStarsThatMove(2000, 1000));
   return (
     <>
       {stars.map((star, i) => (
@@ -58,21 +57,6 @@ function Stars() {
 }
 
 export default function App() {
-  const [active, setActive] = useState(false);
-
-  const audioRef = useRef(null); // Create a ref for the audio element
-
-  const playMusic = () => {
-    // Play the audio and set it to loop
-    if (audioRef.current.paused) {
-      audioRef.current.play();
-      audioRef.current.loop = true;
-      setActive(true);
-    } else {
-      audioRef.current.pause();
-      setActive(false);
-    }
-  };
   return (
     <div className="night-sky">
       <div className="details">
@@ -81,20 +65,24 @@ export default function App() {
         <h3 className="subsubtitle">Athens, Greece</h3>
         <div className="social">
           <a href="https://github.com/imertz" target="_blank" rel="noreferrer">
-            <img src={githubLogo} className="logo react" alt="React logo" />
+            <img src={githubLogo} className="logo react" alt="Github logo" />
           </a>
           <a
             href="https://www.linkedin.com/in/ioannis-mertzanis-6ba211267/"
             target="_blank"
             rel="noreferrer"
           >
-            <img src={linkedinLogo} className="logo react" alt="React logo" />
+            <img
+              src={linkedinLogo}
+              className="logo react"
+              alt="LinkedIn logo"
+            />
           </a>
-          <button onClick={playMusic}>
-            {active ? "Stop Music" : "Play Music"}
-          </button>{" "}
-          {/* Button to play music */}
-          <audio ref={audioRef} src={myMusic}></audio> {/* Audio element */}
+        </div>
+        <div className="social">
+          <a href="mailto:ioannis@mertzanis.gr" className="mail">
+            ioannis@mertzanis.gr
+          </a>
         </div>
       </div>
       <Canvas>
